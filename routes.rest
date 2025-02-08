@@ -1,0 +1,82 @@
+GET http://localhost:3000 HTTP/1.1
+
+###
+GET http://localhost:3000/holidays HTTP/1.1
+
+###
+GET http://localhost:3000/holidays/67a6938fc911d050b999a236 HTTP/1.1
+
+###
+POST http://localhost:3000/holidays HTTP/1.1
+content-type: application/json
+
+{  
+    "name": "Birthday",
+    "date": "2025-10-08",
+    "country": "United States",
+    "type": "Personal",
+    "description": "Stephen Port",
+    "isPublicHoliday": false,
+    "traditions": ["Family gatherings", "Eat at Texas Roadhouse", "New pains start existing at random times"]
+}
+
+###
+PUT http://localhost:3000/holidays/67a69eff1fe63219b7e3d4ed HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Birthday",
+    "date": "2025-10-08",
+    "country": "United States",
+    "type": "Personal",
+    "description": "Stephen Port: A humble genius is born.",
+    "isPublicHoliday": false,
+    "traditions": ["Family gatherings", "Eat at Texas Roadhouse", "New pains start existing at random times"]
+}
+
+###
+Delete http://localhost:3000/holidays/67a6a052e2a8dd0042e51272 HTTP/1.1
+
+
+####################################################################### Render URIs
+
+
+###
+GET https://holidays-api-sport97.onrender.com HTTP/1.1
+
+###
+GET https://holidays-api-sport97.onrender.com/holidays HTTP/1.1
+
+###
+GET https://holidays-api-sport97.onrender.com/holidays/678b30299565cbb0189fa2fc HTTP/1.1
+
+###
+POST https://holidays-api-sport97.onrender.com/holidays HTTP/1.1
+content-type: application/json
+
+{  
+    "name": "Birthday",
+    "date": "2025-10-08",
+    "country": "United States",
+    "type": "Personal",
+    "description": "Stephen Port",
+    "isPublicHoliday": false,
+    "traditions": ["Family gatherings", "Eat at Texas Roadhouse", "New pains start existing at random times"]
+}
+
+###
+PUT https://holidays-api-sport97.onrender.com/holidays/6794623bad78814c96569263 HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Birthday",
+    "date": "2025-10-08",
+    "country": "United States",
+    "type": "Personal",
+    "description": "Stephen Port: A humble genius is born.",
+    "isPublicHoliday": false,
+    "traditions": ["Family gatherings", "Eat at Texas Roadhouse", "New pains start existing at random times"]
+}
+
+###
+Delete https://holidays-api-sport97.onrender.com/holidays/679d66094cfef825658a9ec6 HTTP/1.1

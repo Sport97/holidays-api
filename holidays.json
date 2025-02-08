@@ -1,0 +1,99 @@
+[
+  {
+    "name": "New Year's Day",
+    "date": "2025-01-01",
+    "country": "Global",
+    "type": "Public",
+    "description": "New Year's Day marks the beginning of the Gregorian calendar year. The celebration dates back to ancient Roman times when January 1 was chosen to honor Janus, the Roman god of beginnings and transitions.",
+    "isPublicHoliday": true,
+    "traditions": ["Fireworks displays", "New Year's resolutions", "Family gatherings", "Parades"]
+  },
+  {
+    "name": "Easter",
+    "date": "2025-04-20",
+    "country": "Global",
+    "type": "Religious",
+    "description": "Easter celebrates the resurrection of Jesus Christ, a pivotal event in Christianity. It is observed on the first Sunday after the first full moon following the vernal equinox. The holiday's origins date back to the 4th century, and it is preceded by the season of Lent. In many cultures, Easter is associated with the arrival of spring, rebirth, and renewal.",
+    "isPublicHoliday": true,
+    "traditions": [
+      "Easter egg hunts",
+      "Church services",
+      "Feasting on lamb or other traditional meals",
+      "Baking Easter breads or sweets"
+    ]
+  },
+  {
+    "name": "Independence Day",
+    "date": "2025-07-04",
+    "country": "United States",
+    "type": "National, Public",
+    "description": "Independence Day marks the adoption of the Declaration of Independence in 1776, declaring the 13 American colonies independent from Britain. It represents the birth of the United States as a nation.",
+    "isPublicHoliday": true,
+    "traditions": ["Fireworks displays", "Parades", "Barbecues and picnics", "Patriotic speeches"]
+  },
+  {
+    "name": "Labor Day",
+    "date": "2025-09-01",
+    "country": "United States",
+    "type": "Public",
+    "description": "Labor Day, celebrated on the first Monday of September, honors the contributions and achievements of American workers. It originated during the labor movement in the late 19th century as a way to recognize the economic and social contributions of workers to the nation. It is often seen as the unofficial end of summer in the U.S.",
+    "isPublicHoliday": true,
+    "traditions": ["Labor parades", "Barbecues and picnics", "Shopping sales", "Family gatherings"]
+  },
+  {
+    "name": "Memorial Day",
+    "date": "2025-05-26",
+    "country": "United States",
+    "type": "Public",
+    "description": "Memorial Day, observed on the last Monday of May, is a day to honor and remember the men and women who died in military service to the U.S. It originated as Decoration Day after the Civil War, when people would decorate the graves of fallen soldiers.",
+    "isPublicHoliday": true,
+    "traditions": [
+      "Visiting cemeteries and memorials",
+      "Memorial Day parades",
+      "Flag ceremonies",
+      "Barbecues and picnics"
+    ]
+  },
+  {
+    "name": "Halloween",
+    "date": "2025-10-31",
+    "country": "Global",
+    "type": "Cultural",
+    "description": "Halloween originates from the ancient Celtic festival of Samhain, which marked the end of the harvest season and the beginning of winter. The holiday evolved over time, blending Celtic traditions with Christian influences, especially with All Hallows' Eve, the night before All Saints' Day.",
+    "isPublicHoliday": false,
+    "traditions": [
+      "Trick-or-treating",
+      "Costume parties",
+      "Carving pumpkins",
+      "Decorating homes with spooky themes"
+    ]
+  },
+  {
+    "name": "Thanksgiving",
+    "date": "2025-11-27",
+    "country": "United States, Canada",
+    "type": "Public",
+    "description": "Thanksgiving in the U.S. dates back to the 17th century when Pilgrims and Native Americans celebrated a harvest feast in 1621. It became an official national holiday in 1863 during the Civil War, when President Abraham Lincoln proclaimed a day of 'Thanksgiving and Praise to our beneficent Father who dwelleth in the Heavens.'",
+    "isPublicHoliday": true,
+    "traditions": [
+      "Thanksgiving feast",
+      "Watching parades",
+      "Football games",
+      "Giving thanks around the dinner table"
+    ]
+  },
+  {
+    "name": "Christmas",
+    "date": "2025-12-25",
+    "country": "Global",
+    "type": "Religious, Public",
+    "description": "Christmas is the Christian holiday celebrating the birth of Jesus Christ. The holiday has roots in both Christian traditions and older pagan festivals such as Saturnalia. Christmas was not widely celebrated until the 4th century, when the Church established December 25th as the date of Jesus' birth. Today, it is both a religious and secular holiday celebrated worldwide.",
+    "isPublicHoliday": true,
+    "traditions": [
+      "Exchanging gifts",
+      "Decorating Christmas trees",
+      "Attending church services",
+      "Feasting with family and friends"
+    ]
+  }
+]
