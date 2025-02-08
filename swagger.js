@@ -4,8 +4,8 @@ const doc = {
   info: {
     title: "API Docs"
   },
-  host: "localhost:3000",
-  schemes: ["http"]
+  host: "holidays-api-sport97.onrender.com",
+  schemes: ["https"]
 };
 
 const outputFile = "./swagger.json";
