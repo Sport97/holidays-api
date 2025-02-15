@@ -18,12 +18,11 @@ holidaysController.getHolidays = async (req, res) => {
 holidaysController.getHolidayByID = async (req, res) => {
   try {
     const id = req.params.id;
-    const db = mongodb.getDb();
-    const result = await db.collection("holidays").findOne({ _id: new ObjectId(id) });
-
     if (!ObjectId.isValid(id)) {
       return res.status(400).json({ error: "Invalid ID format" });
     }
+    const db = mongodb.getDb();
+    const result = await db.collection("holidays").findOne({ _id: new ObjectId(id) });
     if (!result) {
       return res.status(404).json({ message: "Holiday not found" });
     }
@@ -67,6 +66,9 @@ holidaysController.createHoliday = async (req, res) => {
 holidaysController.updateHoliday = async (req, res) => {
   try {
     const id = req.params.id;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
     const holidayInfo = {
       name: req.body.name,
       date: req.body.date,
@@ -94,6 +96,9 @@ holidaysController.updateHoliday = async (req, res) => {
 holidaysController.deleteHoliday = async (req, res) => {
   try {
     const id = req.params.id;
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).json({ error: "Invalid ID format" });
+    }
     const db = mongodb.getDb();
     const result = await db.collection("holidays").deleteOne({ _id: new ObjectId(id) });
 

@@ -5,9 +5,9 @@
     "version": "1.0.0",
     "description": ""
   },
-  "host": "holidays-api-sport97.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": ["http"],
   "paths": {
     "/": {
       "get": {
@@ -32,13 +32,9 @@
     "/holidays": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -52,36 +48,33 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "date": {
-                  "example": "any"
+                  "example": "YYYY-MM-DD"
                 },
                 "country": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "type": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "description": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "isPublicHoliday": {
-                  "example": "no"
+                  "example": "boolean"
                 },
                 "traditions": {
-                  "example": ["any"]
+                  "example": ["string"]
                 }
               }
             }
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
@@ -89,7 +82,6 @@
     "/holidays/{id}": {
       "get": {
         "description": "",
-        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
@@ -99,17 +91,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       },
@@ -129,36 +112,33 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "date": {
-                  "example": "any"
+                  "example": "YYYY-MM-DD"
                 },
                 "country": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "type": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "description": {
-                  "example": "any"
+                  "example": "string"
                 },
                 "isPublicHoliday": {
-                  "example": "no"
+                  "example": "boolean"
                 },
                 "traditions": {
-                  "example": ["any"]
+                  "example": ["string"]
                 }
               }
             }
           }
         ],
         "responses": {
-          "204": {
-            "description": "No Content"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "400": {
+            "description": "Bad Request"
           }
         }
       },
@@ -173,11 +153,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "default": {
+            "description": ""
           }
         }
       }

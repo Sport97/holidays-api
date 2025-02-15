@@ -73,7 +73,7 @@ content-type: application/json
     "date": "2025-10-08",
     "country": "United States",
     "type": "Personal",
-    "description": "Stephen Port: A humble genius is born.",
+    "description": "Stephen Port: A humble genius birthday",
     "isPublicHoliday": false,
     "traditions": ["Family gatherings", "Eat at Texas Roadhouse", "New pains start existing at random times"]
 }
