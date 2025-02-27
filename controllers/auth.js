@@ -7,7 +7,8 @@ const path = require("path");
 const fs = require("fs").promises;
 
 const SCOPES = ["openid", "profile", "email"];
-const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
+const CREDENTIALS_PATH =
+  process.env.CREDENTIALS_PATH || path.join(process.cwd(), "credentials.json");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 authController.loadCredentials = async () => {
