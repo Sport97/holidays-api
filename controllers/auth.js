@@ -17,17 +17,23 @@ authController.loadCredentials = async () => {
     if (process.env.CREDENTIALS_JSON) {
       console.log("Loaded Credentials from Environment Variable");
       const cleanJson = process.env.CREDENTIALS_JSON.replace(/\\n/g, "");
-
       credentials = JSON.parse(cleanJson);
     } else {
       console.log("Loaded Credentials from File");
-      const content = await fs.readFile(CREDENTIALS_PATH);
+      const content = await fs.readFile(CREDENTIALS_PATH, "utf-8");
       credentials = JSON.parse(content);
+    }
+
+    const redirectUri = process.env.REDIRECT_URI;
+
+    if (redirectUri) {
+      credentials.installed.redirect_uris = [redirectUri];
+      console.log(`Redirect URI dynamically set: ${redirectUri}`);
     }
 
     return credentials;
   } catch (error) {
-    console.error("❌ Failed to load credentials:", error);
+    console.error("Failed to load credentials:", error.message);
     throw new Error("Failed to load Google OAuth credentials.");
   }
 };
