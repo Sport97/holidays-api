@@ -13,17 +13,19 @@ const JWT_SECRET = process.env.JWT_SECRET;
 authController.loadCredentials = async () => {
   try {
     let credentials;
+
     if (process.env.CREDENTIALS_JSON) {
       credentials = JSON.parse(process.env.CREDENTIALS_JSON);
-      console.log("Loaded Credentials from Environment Variable");
+      console.log("✅ Loaded Credentials from Environment Variable");
     } else {
       const content = await fs.readFile(CREDENTIALS_PATH);
       credentials = JSON.parse(content);
-      console.log("Loaded Credentials from File");
+      console.log("✅ Loaded Credentials from File");
     }
+
     return credentials;
   } catch (error) {
-    console.error("Failed to load credentials:", error);
+    console.error("❌ Failed to load credentials:", error);
     throw new Error("Failed to load Google OAuth credentials.");
   }
 };
