@@ -5,9 +5,11 @@
     "version": "1.0.0",
     "description": ""
   },
-  "host": "holidays-api-sport97.onrender.com",
+  "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/": {
       "get": {
@@ -48,25 +50,25 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "date": {
-                  "example": "YYYY-MM-DD"
+                  "example": "any"
                 },
                 "country": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "type": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "description": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "isPublicHoliday": {
-                  "example": "boolean"
+                  "example": "any"
                 },
                 "traditions": {
-                  "example": ["string"]
+                  "example": "any"
                 }
               }
             }
@@ -112,25 +114,25 @@
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "date": {
-                  "example": "YYYY-MM-DD"
+                  "example": "any"
                 },
                 "country": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "type": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "description": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "isPublicHoliday": {
-                  "example": "boolean"
+                  "example": "any"
                 },
                 "traditions": {
-                  "example": ["string"]
+                  "example": "any"
                 }
               }
             }
@@ -152,6 +154,26 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/callback": {
+      "get": {
+        "description": "",
         "responses": {
           "default": {
             "description": ""

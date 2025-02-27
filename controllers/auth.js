@@ -14,7 +14,12 @@ authController.loadCredentials = async () => {
   try {
     const content = await fs.readFile(CREDENTIALS_PATH);
     const credentials = JSON.parse(content);
-    console.log("Loaded Credentials:", credentials);
+    const redirectUri = process.env.REDIRECT_URI;
+
+    if (redirectUri) {
+      credentials.installed.redirect_uris = [redirectUri];
+      console.log(`Redirect URI dynamically set: ${redirectUri}`);
+    }
     return credentials;
   } catch (error) {
     console.error("Failed to load credentials:", error);
@@ -26,11 +31,11 @@ authController.getGoogleAuthURL = async (req, res) => {
   try {
     const credentials = await authController.loadCredentials();
     const { client_id, client_secret, redirect_uris } = credentials.installed;
-
     const oauth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
+    const accessType = req.hostname === "localhost" ? "offline" : "online";
 
     const authUrl = oauth2Client.generateAuthUrl({
-      access_type: "offline",
+      access_type: accessType,
       scope: SCOPES
     });
 
