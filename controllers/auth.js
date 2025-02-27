@@ -15,12 +15,14 @@ authController.loadCredentials = async () => {
     let credentials;
 
     if (process.env.CREDENTIALS_JSON) {
-      credentials = JSON.parse(process.env.CREDENTIALS_JSON);
-      console.log("✅ Loaded Credentials from Environment Variable");
+      console.log("Loaded Credentials from Environment Variable");
+      const cleanJson = process.env.CREDENTIALS_JSON.replace(/\\n/g, "");
+
+      credentials = JSON.parse(cleanJson);
     } else {
+      console.log("Loaded Credentials from File");
       const content = await fs.readFile(CREDENTIALS_PATH);
       credentials = JSON.parse(content);
-      console.log("✅ Loaded Credentials from File");
     }
 
     return credentials;
