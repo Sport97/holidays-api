@@ -7,19 +7,19 @@ const path = require("path");
 const fs = require("fs").promises;
 
 const SCOPES = ["openid", "profile", "email"];
-const CREDENTIALS_PATH =
-  process.env.CREDENTIALS_PATH || path.join(process.cwd(), "credentials.json");
+const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 authController.loadCredentials = async () => {
   try {
-    const content = await fs.readFile(CREDENTIALS_PATH);
-    const credentials = JSON.parse(content);
-    const redirectUri = process.env.REDIRECT_URI;
-
-    if (redirectUri) {
-      credentials.installed.redirect_uris = [redirectUri];
-      console.log(`Redirect URI dynamically set: ${redirectUri}`);
+    let credentials;
+    if (process.env.CREDENTIALS_JSON) {
+      credentials = JSON.parse(process.env.CREDENTIALS_JSON);
+      console.log("Loaded Credentials from Environment Variable");
+    } else {
+      const content = await fs.readFile(CREDENTIALS_PATH);
+      credentials = JSON.parse(content);
+      console.log("Loaded Credentials from File");
     }
     return credentials;
   } catch (error) {
