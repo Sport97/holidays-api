@@ -24,13 +24,6 @@ authController.loadCredentials = async () => {
       credentials = JSON.parse(content);
     }
 
-    const redirectUri = process.env.REDIRECT_URI;
-
-    if (redirectUri) {
-      credentials.installed.redirect_uris = [redirectUri];
-      console.log(`Redirect URI dynamically set: ${redirectUri}`);
-    }
-
     return credentials;
   } catch (error) {
     console.error("Failed to load credentials:", error.message);
@@ -38,7 +31,7 @@ authController.loadCredentials = async () => {
   }
 };
 
-authController.getGoogleAuthURL = async (req, res) => {
+authController.getGoogleAuthURL = async (req, res, next) => {
   try {
     const credentials = await authController.loadCredentials();
     const { client_id, client_secret, redirect_uris } = credentials.installed;
@@ -47,16 +40,21 @@ authController.getGoogleAuthURL = async (req, res) => {
 
     const authUrl = oauth2Client.generateAuthUrl({
       access_type: accessType,
-      scope: SCOPES
+      scope: SCOPES,
+      prompt: "consent",
+      redirect_uri: redirect_uris[0]
     });
 
-    res.json({ authUrl });
+    console.log("Redirecting to Google Auth...");
+    res.redirect(authUrl);
+
+    return next();
   } catch (error) {
     res.status(500).json({ error: "Failed to generate Google auth URL" });
   }
 };
 
-authController.handleGoogleCallback = async (req, res) => {
+authController.handleGoogleCallback = async (req, res, next) => {
   try {
     const { code } = req.query;
     if (!code) return res.status(400).json({ error: "Authorization code is missing" });
@@ -72,12 +70,42 @@ authController.handleGoogleCallback = async (req, res) => {
     const oauth2 = google.oauth2({ version: "v2", auth: oauth2Client });
     const { data } = await oauth2.userinfo.get();
 
+    console.log("User Authenticated:", data);
+
     const token = jwt.sign({ id: data.id, email: data.email }, JWT_SECRET, { expiresIn: "1h" });
 
-    res.json({ message: "Login successful", user: data, token });
+    req.session.user = data;
+    req.session.token = token;
+
+    console.log("Session Token Created:", token);
+
+    res.redirect("/api-docs");
   } catch (error) {
     console.error("Error in callback:", error);
-    res.status(500).json({ error: "Google OAuth failed" });
+    if (!res.headersSent) {
+      return res.status(500).json({ error: "Google OAuth failed" });
+    }
+  }
+};
+
+authController.verifyToken = (req, res, next) => {
+  if (req.path === "/auth" || req.path === "/auth/callback") {
+    return next();
+  }
+
+  if (req.session && req.session.token) {
+    jwt.verify(req.session.token, JWT_SECRET, (err, user) => {
+      if (err) {
+        console.log("Invalid token, redirecting to Google Auth...");
+        return res.redirect("/auth");
+      }
+      req.user = user;
+      console.log("Token Verified:", user);
+      return next();
+    });
+  } else {
+    console.log("No token found in session, redirecting to Google Auth...");
+    res.redirect("/auth");
   }
 };
 
