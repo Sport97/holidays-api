@@ -5,10 +5,10 @@ const { google } = require("googleapis");
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const fs = require("fs").promises;
-
 const SCOPES = ["openid", "profile", "email"];
 const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 const JWT_SECRET = process.env.JWT_SECRET;
+const { getDb } = require("../database/connect");
 
 authController.loadCredentials = async () => {
   try {
@@ -72,7 +72,23 @@ authController.handleGoogleCallback = async (req, res, next) => {
 
     console.log("User Authenticated:", data);
 
-    const token = jwt.sign({ id: data.id, email: data.email }, JWT_SECRET, { expiresIn: "1h" });
+    const db = getDb();
+    const users = db.collection("users");
+
+    const user = await users.findOneAndUpdate(
+      { googleId: data.id },
+      {
+        $set: {
+          email: data.email,
+          name: data.name,
+          updatedAt: new Date()
+        },
+        $setOnInsert: { createdAt: new Date() }
+      },
+      { upsert: true, returnDocument: "after" }
+    );
+
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: "10m" });
 
     req.session.user = data;
     req.session.token = token;
@@ -88,23 +104,27 @@ authController.handleGoogleCallback = async (req, res, next) => {
   }
 };
 
-authController.verifyToken = (req, res, next) => {
-  if (req.path === "/auth" || req.path === "/auth/callback") {
-    return next();
+let lastLog = 0;
+const throttle = (msg) => {
+  if (Date.now() - lastLog > 10000) {
+    console.log(msg);
+    lastLog = Date.now();
   }
+};
 
+authController.verifyToken = (req, res, next) => {
   if (req.session && req.session.token) {
     jwt.verify(req.session.token, JWT_SECRET, (err, user) => {
       if (err) {
-        console.log("Invalid token, redirecting to Google Auth...");
+        throttle("Invalid token, redirecting to Google Auth...");
         return res.redirect("/auth");
       }
       req.user = user;
-      console.log("Token Verified:", user);
+      throttle(`Token Verified: ${JSON.stringify(user)}`);
       return next();
     });
   } else {
-    console.log("No token found in session, redirecting to Google Auth...");
+    throttle("No token found in session, redirecting to Google Auth...");
     res.redirect("/auth");
   }
 };

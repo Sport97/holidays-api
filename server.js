@@ -5,7 +5,6 @@ const port = process.env.PORT || 3000;
 const host = process.env.HOST;
 const MongoClient = require("mongodb").MongoClient;
 const mongodb = require("./database/connect");
-const authController = require("./controllers/auth");
 const utilities = require("./utilities/");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -15,7 +14,7 @@ app.use(
     secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false, maxAge: 60000 }
   })
 );
 
@@ -27,18 +26,16 @@ app.use(express.json()).use((req, res, next) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(authController.verifyToken);
-
-app.get("/auth", utilities.handleErrors(authController.getGoogleAuthURL));
-app.get("/auth/callback", utilities.handleErrors(authController.handleGoogleCallback));
-
-app.use("/", require("./routes"));
-
 mongodb.initDb((err) => {
   if (err) {
     console.log(err);
-  } else {
-    app.listen(port);
-    console.log(`Connected to Database and listening on ${host}:${port}`);
+    process.exit(1);
   }
+  console.log("Database Initialized");
+  const authController = require("./controllers/auth");
+  authController.loadCredentials();
+  app.get("/auth/callback", utilities.handleErrors(authController.handleGoogleCallback));
+  app.use("/", require("./routes"));
+  app.listen(port);
+  console.log(`Connected to Database and listening on ${host}:${port}`);
 });

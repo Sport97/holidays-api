@@ -1,4 +1,32 @@
+###
 GET http://localhost:3000 HTTP/1.1
+
+###
+GET http://localhost:3000/account
+
+###
+POST http://localhost:3000/account/signup HTTP/1.1
+content-type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "passwd1235"
+}
+
+###
+POST http://localhost:3000/account/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "passwd1235"
+}
+
+###
+GET http://localhost:3000/account/logout
+
+###
+GET http://localhost:3000/auth
 
 ###
 GET http://localhost:3000/holidays HTTP/1.1
@@ -43,6 +71,33 @@ Delete http://localhost:3000/holidays/67a6a052e2a8dd0042e51272 HTTP/1.1
 
 ###
 GET https://holidays-api-sport97.onrender.com HTTP/1.1
+
+###
+GET https://holidays-api-sport97.onrender.com/account
+
+###
+POST https://holidays-api-sport97.onrender.com/account/signup HTTP/1.1
+content-type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "passwd1235"
+}
+
+###
+POST https://holidays-api-sport97.onrender.com/account/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "test@email.com",
+  "password": "passwd1235"
+}
+
+###
+GET https://holidays-api-sport97.onrender.com/account/logout
+
+###
+GET https://holidays-api-sport97.onrender.com/auth
 
 ###
 GET https://holidays-api-sport97.onrender.com/holidays HTTP/1.1
