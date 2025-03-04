@@ -4,16 +4,9 @@ const holidaysController = require("../controllers/holidays");
 const utilities = require("../utilities/");
 const validate = require("../utilities/validate");
 
-router.get(
-  "/holidays",
-  utilities.verifyAccess,
-  utilities.handleErrors(holidaysController.getHolidays)
-);
-router.get(
-  "/holidays/:id",
-  utilities.verifyAccess,
-  utilities.handleErrors(holidaysController.getHolidayByID)
-);
+router.get("/holidays", utilities.handleErrors(holidaysController.getHolidays));
+
+router.get("/holidays/:id", utilities.handleErrors(holidaysController.getHolidayByID));
 
 router.post(
   "/holidays",

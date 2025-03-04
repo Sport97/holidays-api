@@ -13,8 +13,8 @@ app.use(
   session({
     secret: process.env.JWT_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false, maxAge: 60000 }
+    saveUninitialized: false,
+    cookie: { secure: process.env.NODE_ENV === "production", maxAge: 3600000 }
   })
 );
 

@@ -9,8 +9,8 @@ POST http://localhost:3000/account/signup HTTP/1.1
 content-type: application/json
 
 {
-  "email": "test@email.com",
-  "password": "passwd1235"
+  "email": "holidays-api@email.com",
+  "password": "superStrongPasswd#341"
 }
 
 ###
@@ -18,8 +18,16 @@ POST http://localhost:3000/account/login HTTP/1.1
 content-type: application/json
 
 {
-  "email": "test@email.com",
-  "password": "passwd1235"
+  "email": "holidays-api@email.com",
+  "password": "superStrongPasswd#341"
+}
+
+###
+PUT http://localhost:3000/account/login/holidays-api@email.com HTTP/1.1
+content-type: application/json
+
+{
+  "email": "holidays-api@cse.byui"
 }
 
 ###
@@ -32,7 +40,7 @@ GET http://localhost:3000/auth
 GET http://localhost:3000/holidays HTTP/1.1
 
 ###
-GET http://localhost:3000/holidays/67a6938fc911d050b999a236 HTTP/1.1
+GET http://localhost:3000/holidays/67c677e14395fa98a70b0ba7 HTTP/1.1
 
 ###
 POST http://localhost:3000/holidays HTTP/1.1
@@ -57,7 +65,7 @@ content-type: application/json
     "date": "2025-10-08",
     "country": "United States",
     "type": "Personal",
-    "description": "Stephen Port: A humble genius is born.",
+    "description": "Stephen Port: A humble genius birthday",
     "isPublicHoliday": false,
     "traditions": ["Family gatherings", "Eat at Texas Roadhouse", "New pains start existing at random times"]
 }
@@ -80,8 +88,8 @@ POST https://holidays-api-sport97.onrender.com/account/signup HTTP/1.1
 content-type: application/json
 
 {
-  "email": "test@email.com",
-  "password": "passwd1235"
+  "email": "holidays-api@email.com",
+  "password": "superStrongPasswd#341"
 }
 
 ###
@@ -89,8 +97,16 @@ POST https://holidays-api-sport97.onrender.com/account/login HTTP/1.1
 content-type: application/json
 
 {
-  "email": "test@email.com",
-  "password": "passwd1235"
+  "email": "holidays-api@email.com",
+  "password": "superStrongPasswd#341"
+}
+
+###
+PUT https://holidays-api-sport97.onrender.com/account/login/holidays-api@email.com HTTP/1.1
+content-type: application/json
+
+{
+  "email": "holidays-api@cse.byui"
 }
 
 ###
@@ -103,7 +119,7 @@ GET https://holidays-api-sport97.onrender.com/auth
 GET https://holidays-api-sport97.onrender.com/holidays HTTP/1.1
 
 ###
-GET https://holidays-api-sport97.onrender.com/holidays/678b30299565cbb0189fa2fc HTTP/1.1
+GET https://holidays-api-sport97.onrender.com/holidays/67c677e14395fa98a70b0ba7 HTTP/1.1
 
 ###
 POST https://holidays-api-sport97.onrender.com/holidays HTTP/1.1

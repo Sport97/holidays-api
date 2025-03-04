@@ -8,7 +8,7 @@ const fs = require("fs").promises;
 const SCOPES = ["openid", "profile", "email"];
 const CREDENTIALS_PATH = path.join(process.cwd(), "credentials.json");
 const JWT_SECRET = process.env.JWT_SECRET;
-const { getDb } = require("../database/connect");
+const mongodb = require("../database/connect");
 
 authController.loadCredentials = async () => {
   try {
@@ -72,23 +72,20 @@ authController.handleGoogleCallback = async (req, res, next) => {
 
     console.log("User Authenticated:", data);
 
-    const db = getDb();
+    const db = mongodb.getDb();
     const users = db.collection("users");
 
     const user = await users.findOneAndUpdate(
       { googleId: data.id },
       {
         $set: {
-          email: data.email,
-          name: data.name,
-          updatedAt: new Date()
-        },
-        $setOnInsert: { createdAt: new Date() }
+          email: data.email
+        }
       },
       { upsert: true, returnDocument: "after" }
     );
 
-    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: "10m" });
+    const token = jwt.sign({ id: user._id, email: user.email }, JWT_SECRET, { expiresIn: "1h" });
 
     req.session.user = data;
     req.session.token = token;
