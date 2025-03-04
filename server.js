@@ -14,7 +14,7 @@ app.use(
     secret: process.env.JWT_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === "production", maxAge: 3600000 }
+    cookie: { maxAge: 3600000 }
   })
 );
 
@@ -35,12 +35,6 @@ mongodb.initDb((err) => {
   const authController = require("./controllers/auth");
   authController.loadCredentials();
   app.get("/auth/callback", utilities.handleErrors(authController.handleGoogleCallback));
-  app.use((req, res, next) => {
-    if (req.session.user) {
-      req.session.touch();
-    }
-    next();
-  });
   app.use("/", require("./routes"));
   app.listen(port);
   console.log(`Connected to Database and listening on ${host}:${port}`);
